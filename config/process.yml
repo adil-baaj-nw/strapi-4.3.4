@@ -1,0 +1,16 @@
+apps:
+  - name: strapi
+    script: server.js             # Application's startup file name
+    instances: 4                # Number of processes that must run in parallel, you can change this if you want
+    exec_mode: cluster
+
+    cwd: /app
+    max_restarts: 10
+    watch: false
+    max_memory_restart: '1G'
+    error_file: /app/logs/strapi-immo.err.log
+    out_file: /app/logs/strapi-immo.out.log
+    log_date_format: 'DD-MM HH:mm:ss.SSS'
+
+    # if set to true, avoid to suffix logs file with the process id
+    combine_logs: true,
