@@ -1,7 +1,7 @@
 apps:
   - name: strapi
     script: server.js             # Application's startup file name
-    instances: 4                # Number of processes that must run in parallel, you can change this if you want
+    instances: 2               # Number of processes that must run in parallel, you can change this if you want
     exec_mode: cluster
 
     cwd: /app
@@ -13,4 +13,4 @@ apps:
     log_date_format: 'DD-MM HH:mm:ss.SSS'
 
     # if set to true, avoid to suffix logs file with the process id
-    combine_logs: true,
+    combine_logs: true

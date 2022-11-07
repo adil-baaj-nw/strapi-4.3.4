@@ -8,5 +8,5 @@
  * This is handy in situations where the Strapi CLI is not relevant or useful.
  */
 
-const strapi = require('strapi');
+const strapi = require('@strapi/strapi');
 strapi().start();

@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+    container_name: strapi
+    restart: unless-stopped
+    environment:
+      - DATABASE_CLIENT=mysql
+      - DATABASE_HOST=db
+      - DATABASE_PORT=3306
+      - DATABASE_NAME=strapidb
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=nimbleways
+      - NODE_ENV=development
+    volumes:
+      - ./src:/app/src
+      - ./config:/app/config
+      - ./database:/app/database
+      - ./public:/app/public
+      - ./node_modules:/app/node_modules
+      - type: bind
+        source: ./start.sh
+        target: /app/start.sh
+      - type: bind
+        source: ./server.js
+        target: /app/server.js
+      - type: bind
+        source: ./.env
+        target: /app/.env
+      - type: bind
+        source: ./process.yml
+        target: /app/process.yml
+    depends_on:
+      - db
+    ports:
+      - 1337:1337
+
+  db:
+    container_name: strapidb
+    image: mariadb:10.7
+    restart: always
+    environment:
+      MYSQL_USER: nimbleways
+      MYSQL_PASSWORD: nimbleways
+      MYSQL_ROOT_PASSWORD: nimbleways
+      MYSQL_DATABASE: strapidb
+    ports:
+      - 3306:3306
+    volumes:
+      - db_strapi_test:/var/lib/mysql
+
+volumes:
+  node_modules:
+  db_strapi_test:
